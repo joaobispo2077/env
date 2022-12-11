@@ -16,7 +16,7 @@ choco install opera-gx adobereader discord lightshot notion brave firefox steam 
 
 # Dev tools
 echo "Dev tools basic apps (navigator, useful tools)..."
-choco install git vscode figma insomnia-rest-api-client beekeeper-studio dbeaver nvm pyenv-win microsoft-windows-terminal jetbrainsmono -y
+choco install jetbrainsmono git microsoft-windows-terminal vscode nvm pyenv-win figma insomnia-rest-api-client beekeeper-studio dbeaver docker-desktop -y
 
 # Show initial and final time of execution
 echo "Started at:"
