@@ -8,7 +8,7 @@ Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManage
 
 # Basic apps
 echo "Installing basic apps (navigator, useful tools)..."
-choco install opera-gx adobereader discord lightshot notion brave firefox steam -y
+choco install opera-gx vlc adobereader discord lightshot notion brave firefox steam obs-studio -y
 
 # Optinal benchmark tools
 # echo "Installing benchmark tools..."
@@ -16,7 +16,7 @@ choco install opera-gx adobereader discord lightshot notion brave firefox steam 
 
 # Dev tools
 echo "Dev tools basic apps (navigator, useful tools)..."
-choco install jetbrainsmono git microsoft-windows-terminal vscode nvm pyenv-win figma insomnia-rest-api-client beekeeper-studio dbeaver docker-desktop -y
+choco install jetbrainsmono git microsoft-windows-terminal vscode vscode-settingssync nvm pyenv-win figma insomnia-rest-api-client beekeeper-studio dbeaver docker-desktop -y
 
 # Show initial and final time of execution
 echo "Started at:"
