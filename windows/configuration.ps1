@@ -16,3 +16,11 @@ python -V
 
 # Refresh environment variables from PATH
 refreshenv
+
+# Add vscode as git config editor
+git config --global core.editor code
+
+# Add git aliases
+git config --global alias.s '!git status -s'
+git config --global alias.c '!git add --all && git commit -m'
+git config --global alias.l "!git log --pretty=format:'%C(blue)%h%C(red)%d %C(white)%s - %C(cyan)%cn, %C(green)%cr'"
