@@ -23,7 +23,7 @@ choco install steam cemu -y
 
 # Dev tools
 echo "Dev tools basic apps (navigator, useful tools)..."
-choco install jetbrainsmono git microsoft-windows-terminal tldr vscode vscode-settingssync nvm pyenv-win figma insomnia-rest-api-client beekeeper-studio dbeaver docker-desktop -y
+choco install gh jetbrainsmono git microsoft-windows-terminal tldr vscode vscode-settingssync nvm pyenv-win figma insomnia-rest-api-client beekeeper-studio dbeaver docker-desktop -y
 
 # Show initial and final time of execution
 echo "Started at:"
