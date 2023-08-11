@@ -5,13 +5,21 @@ nvm list
 nvm install 14
 nvm install 16
 nvm install lts
+
+# Refresh environment variables from PATH
+refreshenv
 node -v
+
 
 # Add python LTS
 pyenv install -list
 pyenv install 3.10.0
 pyenv versions
 pyenv global 3.10.0
+
+# Refresh environment variables from PATH
+refreshenv
+
 python -V
 
 # Refresh environment variables from PATH
