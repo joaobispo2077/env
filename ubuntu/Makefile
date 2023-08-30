@@ -1,3 +1,6 @@
+REMOTE_USERNAME = 'joaobispo2077'
+REMOTE_EMAIL = 'joaobispo2077@gmail.com'
+
 # zsh is a shell designed for interactive use, although it is also a powerful scripting language.
 zsh:
 	bash scripts/install-zsh.sh
@@ -18,3 +21,15 @@ zinit:
 # nvm is a version manager for node.js, designed to be installed per-user, and invoked per-shell.
 nvm:
 	bash scripts/install-nvm.sh
+
+init_git:
+	@echo "Config git username"
+	@echo
+	git config user.name $(REMOTE_USERNAME)
+	@echo "Config git email"
+	@echo
+	git config user.email $(REMOTE_EMAIL)
+	@echo Usando username:
+	git config --get user.name
+	@echo Usando email:
+	git config --get user.email
