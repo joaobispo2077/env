@@ -5,7 +5,12 @@ zsh:
 ohmyzsh:
 	sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
-#zinit is plugin manager for zsh
+#p10k is a lightweight theme for Zsh. It emphasizes speed, flexibility and out-of-the-box experience.
+p10k:
+	git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+	p10k configure
+
+#zinit is plugin manager for oh my zsh
 zinit:
 	bash -c "$(curl --fail --show-error --silent --location https://raw.githubusercontent.com/zdharma-continuum/zinit/HEAD/scripts/install.sh)"
 	zinit self-update
