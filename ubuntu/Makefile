@@ -18,6 +18,9 @@ zinit:
 	bash -c "$(curl --fail --show-error --silent --location https://raw.githubusercontent.com/zdharma-continuum/zinit/HEAD/scripts/install.sh)"
 	zinit self-update
 
+zplugins:
+	bash scripts/install-plugins-zinit.sh
+
 # nvm is a version manager for node.js, designed to be installed per-user, and invoked per-shell.
 nvm:
 	bash scripts/install-nvm.sh
