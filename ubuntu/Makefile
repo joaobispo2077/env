@@ -28,10 +28,10 @@ nvm:
 init_git:
 	@echo "Config git username"
 	@echo
-	git config user.name $(REMOTE_USERNAME)
+	git config --global user.name $(REMOTE_USERNAME)
 	@echo "Config git email"
 	@echo
-	git config user.email $(REMOTE_EMAIL)
+	git config --global user.email $(REMOTE_EMAIL)
 	@echo Usando username:
 	git config --get user.name
 	@echo Usando email:
