@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Define the new ZSH_THEME value
-new_theme='ZSH_THEME="powerlevel10k"'
+new_theme='ZSH_THEME="powerlevel10k/powerlevel10k"'
 
 # Check if ~/.zshrc exists
 if [ -f ~/.zshrc ]; then
