@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# Update package information
-sudo apt update
-
 # Install Node Version Manager (NVM)
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
 
