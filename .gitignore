@@ -1,0 +1,12 @@
+# Custom
+
+@tmp/
+tmp/
+.copilot/
+.github/copilot/
+.cursor/
+.sdd/
+.cursor-plugin/
+specs/
+.github/
+!.github/workflows/
