@@ -10,3 +10,4 @@ tmp/
 specs/
 .github/
 !.github/workflows/
+.env
