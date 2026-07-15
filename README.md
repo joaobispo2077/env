@@ -39,7 +39,9 @@ Mirror C brain to H brain:
 & C:\Users\vitor\dev\tools\env\windows\ai-memory-backup-to-H.ps1
 ```
 
-That script stops ai-memory, mirrors only durable state (`db` + `wiki`) from `C:\ai-memory-data` to `H:\ai-memory-data`, then starts ai-memory again. This is the part that makes H have the same important data as C.
+That script stops ai-memory, mirrors only durable state (`auth.json` + `db` + `wiki`) from `C:\ai-memory-data` to `H:\ai-memory-data`, then starts ai-memory again. This is the part that makes H have the same important data as C.
+
+End-of-session habit: run this backup script before closing the day so `H:` has the latest brain.
 
 Start from H brain if C dies:
 

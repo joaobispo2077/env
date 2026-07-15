@@ -15,7 +15,7 @@ try {
     throw "robocopy failed with exit code $code"
   }
 
-  "ai-memory db+wiki mirrored from $source to $target"
+  "ai-memory brain (auth+db+wiki) mirrored from $source to $target"
 }
 finally {
   Pop-Location
