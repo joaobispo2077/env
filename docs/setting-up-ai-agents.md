@@ -1,229 +1,92 @@
 # Setting Up AI Agents
 
-Single guide to set up two AI agents (`Cursor`, `GitHub Copilot`) with three feature tracks:
-- SDD
-- RTK AI
-- caveman
+Tools for ChatGPT (Codex), Cursor, and Claude Code in this repo:
 
-Supports:
-- Ubuntu
-- Windows native (PowerShell/CMD)
-- Windows with WSL (recommended for RTK)
+- [Spec Kit](https://github.com/github/spec-kit) — spec-driven development for ChatGPT (Codex) and Claude Code
+- [Spec Kit for Cursor](https://github.com/madebyaris/spec-kit-command-cursor) — Cursor commands such as `/brief`, `/plan`, and `/implement`
+- [caveman](https://github.com/juliusbrussee/caveman) — short replies, same technical content
+- [RTK](https://github.com/rtk-ai/rtk) — compressed shell output
+- [ponytail](https://github.com/dietrichgebert/ponytail) — smallest change that still solves the task
 
-## Section Index
+ChatGPT’s coding agent is Codex. There is no separate ChatGPT skill installer.
 
-- [1) Prerequisites](#1-prerequisites)
-- [2) Setup Model (No Repetition)](#2-setup-model-no-repetition)
-  - [2.1 SDD by Agent](#21-sdd-by-agent)
-  - [2.2 RTK by Shell + Agent Delta](#22-rtk-by-shell--agent-delta)
-  - [2.3 Caveman by Agent](#23-caveman-by-agent)
-  - [2.4 Quick Matrix](#24-quick-matrix)
-- [5) Copilot-Only Instructions](#5-copilot-only-instructions)
-- [6) Verification Checklists](#6-verification-checklists)
-- [7) Troubleshooting](#7-troubleshooting)
+## Already installed here
 
-## 1) Prerequisites
+| Tool | ChatGPT (Codex) | Cursor | Claude Code |
+|------|-----------------|--------|-------------|
+| Spec Kit | `.agents/skills/speckit-*` | [madebyaris/spec-kit-command-cursor](https://github.com/madebyaris/spec-kit-command-cursor) in `.cursor/commands`, `.cursor/agents`, `.cursor/skills/sdd-*`, and `.sdd` | `.claude/skills/speckit-*` |
+| caveman | `~/.agents/skills/caveman*` | `~/.agents/skills/caveman*` | `~/.claude/skills/caveman*` |
+| ponytail | `~/.agents/skills/ponytail*` | `~/.agents/skills/ponytail*` | `~/.claude/skills/ponytail*` |
+| RTK | `~/.codex` hook + `RTK.md` | `~/.cursor/hooks.json` | `~/.claude/settings.json` hook |
 
-- Git installed
-- Node.js + npm/npx installed
-- Terminal access (`bash` on Ubuntu/WSL, `PowerShell` or `CMD` on Windows native)
+Spec Kit lives in this repo. caveman, ponytail, and RTK are installed for the user, so they apply in this repo and in other repos.
 
-### SDD Source Links
+Open a new chat after installing skills. The session that installed them does not load them until it restarts.
 
-- Cursor SDD source: [madebyaris/spec-kit-command-cursor](https://github.com/madebyaris/spec-kit-command-cursor?utm_source=chatgpt.com)
-- Copilot SDD source: [github/spec-kit](https://github.com/github/spec-kit?utm_source=chatgpt.com)
+## Install again
 
-### Prerequisite Bootstrap (if tools missing)
+Prerequisites: Git, Node.js, and `uv`.
 
-If `uv` is not installed:
-
-```bash
-curl -LsSf https://astral.sh/uv/install.sh | sh
-```
-
-If `specify` is not installed:
-
-```bash
+```powershell
 uv tool install specify-cli --from git+https://github.com/github/spec-kit.git
 ```
 
-### SDD Init Command (Copilot flow)
+Windows RTK:
 
-Run in project root for Spec Kit (Copilot integration):
-
-```bash
-specify init --here --integration copilot
+```powershell
+winget install rtk-ai.rtk
 ```
 
-## 2) Setup Model
+### Spec Kit
 
-Pick shell context first:
-- Ubuntu -> use `bash`
-- Windows native -> use `PowerShell`/`CMD` (RTK limited)
-- Windows WSL -> use `bash` (recommended for RTK)
+ChatGPT (Codex) and Claude Code use GitHub Spec Kit. From the repo root:
 
-### 2.1 SDD by Agent
-
-#### Cursor (SDD toolkit model)
-
-Reference:
-- [madebyaris/spec-kit-command-cursor](https://github.com/madebyaris/spec-kit-command-cursor?utm_source=chatgpt.com)
-
-```bash
-git clone https://github.com/madebyaris/spec-kit-command-cursor.git
-cd spec-kit-command-cursor
+```powershell
+specify init --here --integration claude --force --ignore-agent-tools --script ps
+specify integration install codex --force --script ps --integration-options="--skills"
+specify integration status
 ```
 
-Open Cursor in repo, then run chat commands:
-`/brief`, `/research`, `/plan`, `/tasks`, `/implement`
+In those agents, use `/speckit-constitution`, `/speckit-specify`, `/speckit-plan`, `/speckit-tasks`, `/speckit-implement`, and `/speckit-converge`.
 
-#### GitHub Copilot (Spec Kit CLI model)
+Cursor uses [spec-kit-command-cursor](https://github.com/madebyaris/spec-kit-command-cursor). Copy its `.cursor` commands, agents, rules, and `sdd-*` skills, plus `.sdd` and `.cursor-plugin`, into this repo. Do not install the `cursor-agent` Spec Kit integration; that is a different command set.
 
-Reference:
-- [github/spec-kit](https://github.com/github/spec-kit?utm_source=chatgpt.com)
-
-```bash
-specify init --here --integration copilot
+```powershell
+git clone --depth 1 https://github.com/madebyaris/spec-kit-command-cursor.git $env:TEMP\spec-kit-command-cursor
 ```
 
-### 2.2 RTK by Shell + Agent Delta
+In Cursor chat, start with `/brief`, then `/implement`. Larger work uses `/research`, `/specify`, `/plan`, `/tasks`, and `/implement`.
 
-Common install (Ubuntu/WSL, and optional on Windows native):
+### caveman and ponytail
 
-```bash
-curl -fsSL https://raw.githubusercontent.com/rtk-ai/rtk/refs/heads/master/install.sh | sh
-rtk init -g
+```powershell
+npx skills add JuliusBrussee/caveman -g -a cursor -a claude-code -a codex -s * -y --copy
+npx skills add DietrichGebert/ponytail -g -a cursor -a claude-code -a codex -s * -y --copy
 ```
 
-Agent delta:
+Say `/caveman` or `/ponytail` in chat. `stop caveman` and `/ponytail off` turn them off.
 
-```bash
-# Cursor
+### RTK
+
+```powershell
 rtk init -g --agent cursor
-
-# Copilot
-rtk init -g --copilot
+rtk init -g --agent claude --auto-patch
+rtk init -g --codex
 ```
 
-Telemetry checks (both agents):
+Cursor and Claude rewrite shell commands through a hook. Codex is told to prefix commands with `rtk`.
 
-```bash
+Telemetry stays off unless you opt in:
+
+```powershell
 rtk telemetry status
 rtk telemetry disable
-rtk telemetry forget
-rtk telemetry status
 ```
 
-Windows native note:
-> RTK has limited power on native Windows. Prefer WSL flow for full capability.
+## Check
 
-### 2.3 Caveman by Agent
-
-```bash
-# Cursor
-npx skills add JuliusBrussee/caveman -a cursor
-
-# GitHub Copilot
-npx skills add JuliusBrussee/caveman -a github-copilot
-```
-
-### 2.4 Quick Matrix
-
-| Area | Cursor | GitHub Copilot |
-|------|--------|----------------|
-| SDD source | `madebyaris/spec-kit-command-cursor` | `github/spec-kit` |
-| SDD setup action | clone repo + use Cursor slash commands | `specify init --here --integration copilot` |
-| RTK agent init | `rtk init -g --agent cursor` | `rtk init -g --copilot` |
-| caveman install | `npx skills add JuliusBrussee/caveman -a cursor` | `npx skills add JuliusBrussee/caveman -a github-copilot` |
-
-## 5) Copilot-Only Instructions
-
-Use this section only for GitHub Copilot agent setup and behavior.
-
-Full sample file in repo:
-[`docs/samples/md/copilot-instructions.md`](samples/md/copilot-instructions.md)
-
-## 6) Verification Checklists
-
-### Agent Checklist
-
-#### Cursor
-- [ ] SDD toolkit repo cloned: `git clone https://github.com/madebyaris/spec-kit-command-cursor.git`
-- [ ] Cursor opened in `spec-kit-command-cursor`
-- [ ] SDD slash commands available (`/brief`, `/research`, `/plan`, `/tasks`, `/implement`)
-- [ ] RTK initialized: `rtk init -g --agent cursor`
-- [ ] caveman installed: `npx skills add JuliusBrussee/caveman -a cursor`
-- [ ] telemetry sequence verified
-
-#### GitHub Copilot
-- [ ] SDD initialized: `specify init --here --integration copilot`
-- [ ] RTK initialized: `rtk init -g --copilot`
-- [ ] caveman installed: `npx skills add JuliusBrussee/caveman -a github-copilot`
-- [ ] Copilot-only instructions applied
-- [ ] telemetry sequence verified
-
-### Shell/OS Checklist
-
-- [ ] Ubuntu: use `bash`
-- [ ] Windows native: use `PowerShell`/`CMD`, acknowledge RTK limitations
-- [ ] Windows WSL: use `bash`, preferred path for full RTK capability
-
-## 7) Troubleshooting
-
-### `npx: command not found`
-
-- Install Node.js and npm first.
-- Restart shell and run:
-
-```bash
-npx --version
-```
-
-### `uv: command not found`
-
-- Install `uv` and restart shell:
-
-```bash
-curl -LsSf https://astral.sh/uv/install.sh | sh
-```
-
-### `specify: command not found`
-
-- Install Specify CLI with `uv`, then verify:
-
-```bash
-uv tool install specify-cli --from git+https://github.com/github/spec-kit.git
-specify version
-```
-
-### `rtk: command not found`
-
-- Re-run RTK install in shell where you plan to use it:
-
-```bash
-curl -fsSL https://raw.githubusercontent.com/rtk-ai/rtk/refs/heads/master/install.sh | sh
-```
-
-- Restart shell session.
-
-### Telemetry status not changing
-
-- Re-run commands in order:
-
-```bash
-rtk telemetry status
-rtk telemetry disable
-rtk telemetry forget
-rtk telemetry status
-```
-
-### Command works in WSL, fails in native Windows
-
-- Expected for some RTK features.
-- Use WSL for full RTK capability.
-
-### Wrong shell context
-
-- Ubuntu/WSL commands use `bash`.
-- Windows native commands use `PowerShell` or `CMD`.
-- If command fails, confirm shell type before retry.
+- [ ] `specify integration status` lists `claude` and `codex`, and not `cursor-agent`
+- [ ] `.cursor/commands/brief.md` and `.cursor/skills/sdd-planning/SKILL.md` exist
+- [ ] `rtk --version` and `rtk gain` both run
+- [ ] `~/.agents/skills` and `~/.claude/skills` contain `caveman` and `ponytail`
+- [ ] A new Cursor chat in this repo can see `/brief`. Claude and Codex can see `/speckit-specify`, `/caveman`, and `/ponytail`
