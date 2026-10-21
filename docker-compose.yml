@@ -1,12 +1,15 @@
 services:
   ai-memory:
-    image: akitaonrails/ai-memory:latest
+    image: akitaonrails/ai-memory:3.1.2
     container_name: ai-memory
     user: "0:0"
     restart: unless-stopped
     stop_grace_period: 30s
     ports:
-      - "127.0.0.1:49374:49374"
+      # Host 49374 is the repair proxy in windows/ai-memory-http-proxy.ps1.
+      # Docker Desktop rewrites this publish as chunked HTTP without chunk
+      # framing, which strict MCP and hook clients cannot read.
+      - "127.0.0.1:49375:49374"
     volumes:
       - "${AI_MEMORY_HOST_DATA_DIR:-C:/ai-memory-data}:/data"
     environment:
@@ -15,6 +18,8 @@ services:
       - AI_MEMORY_LLM_PROVIDER
       - AI_MEMORY_LLM_MODEL
       - AI_MEMORY_EMBEDDING_PROVIDER
+      - AI_MEMORY_CONSOLIDATE_ON_SESSION_END
+      - AI_MEMORY_RERANKER
       - OPENAI_API_KEY
       - ANTHROPIC_API_KEY
       - GEMINI_API_KEY

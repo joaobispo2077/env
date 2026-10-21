@@ -10,6 +10,7 @@ try {
   robocopy $source $target /MIR /XD logs models raw /R:2 /W:2 | Out-Host
   $code = $LASTEXITCODE
   docker compose up -d ai-memory | Out-Null
+  & "$PSScriptRoot\ai-memory-http-proxy.ps1"
 
   if ($code -gt 7) {
     throw "robocopy failed with exit code $code"
